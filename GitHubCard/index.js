@@ -35,9 +35,16 @@ axios.get('https://api.github.com/users/Fry-Fr')
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
-
-const followersArray = [];
-
+const followersArray = ['karapeoples', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+const followers = []
+followersArray.forEach(item => {
+  axios.get(`https://api.github.com/users/${item}`)
+    .then(element => {
+      followers.push(element)
+      }
+    )
+    .catch(err => console.log(err))
+})
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -58,10 +65,54 @@ const followersArray = [];
     </div>
 */
 setTimeout(()=>{
-  console.log(ryansData)
-},500)
+  cardMaker(ryansData)
+  followers.forEach(item => {
+    cardMaker(item)
+  })
+},200)
 function cardMaker(obj){
-  
+  let card = document.createElement('div')
+  let cardInfo = document.createElement('div')
+  let img = document.createElement('img')
+  let h3 = document.createElement('h3')
+  let a = document.createElement('a')
+  let username = document.createElement('p')
+  let location = document.createElement('p')
+  let profile = document.createElement('p')
+  let followers = document.createElement('p')
+  let following = document.createElement('p')
+  let bio = document.createElement('p')
+  a.setAttribute('href',obj.data.html_url)
+  img.setAttribute('src',obj.data.avatar_url)
+  a.textContent = obj.data.html_url
+  h3.textContent = obj.data.name
+  username.textContent = `Username: ${obj.data.login}`
+  location.textContent = `Location: ${obj.data.location}`
+  profile.textContent = `Profile: `
+  followers.textContent = `Followers: ${obj.data.followers}`
+  following.textContent = `Following: ${obj.data.following}`
+  bio.textContent = `Bio: ${obj.data.bio}`
+
+  profile.addEventListener
+
+  card.classList.add('card')
+  cardInfo.classList.add('card-info')
+  h3.classList.add('name')
+  username.classList.add('username')
+  profile.appendChild(a)
+  card.appendChild(img)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(h3)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+  document.body.querySelector('.cards').appendChild(card)
+
+  return card
+
 }
 
 /*
