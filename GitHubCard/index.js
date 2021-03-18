@@ -3,7 +3,15 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from 'axios'
 
+axios.get('https://api.github.com/users/Fry-Fr')
+  .then(element => {
+    ryansData = element
+  })
+  .catch(err => err)
+
+  let ryansData
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +57,12 @@ const followersArray = [];
       </div>
     </div>
 */
+setTimeout(()=>{
+  console.log(ryansData)
+},500)
+function cardMaker(obj){
+  
+}
 
 /*
   List of LS Instructors Github username's:
